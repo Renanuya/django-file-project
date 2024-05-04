@@ -26,6 +26,7 @@ urlpatterns = [
     path('files/upload', views.upload, name='upload'),
     path('', views.home, name='home'),
     path('delete_file/<int:file_id>/', views.delete_file, name='delete_file'),
+    path('rename_file/<int:file_id>/', views.rename_file, name='rename_file'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

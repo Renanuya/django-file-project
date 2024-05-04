@@ -10,3 +10,7 @@ class UploadForm(ModelForm):
     class Meta:
         model = Files
         fields = ['name', 'document']
+
+
+class RenameFileForm(forms.Form):
+    new_name = forms.CharField(label='New Name', max_length=100)

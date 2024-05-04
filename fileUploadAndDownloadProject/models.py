@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 
 
@@ -11,3 +13,8 @@ class Files(models.Model):
         self.document.delete()
         # Call the default delete() implementation
         super().delete(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # Update the file path in the database
+        self.document.name = self.document.name
+        super().save(*args, **kwargs)

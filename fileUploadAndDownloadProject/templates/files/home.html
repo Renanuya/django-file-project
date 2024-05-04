@@ -22,10 +22,16 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ file.name }}</h2>
                         <p class="card-text">Upload date: {{ file.uploaded_at }}</p>
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ file.document.url }}" download class="btn btn-sm btn-outline-secondary download-button">Download</a>
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ file.id }}">Delete</button>
-                        </div>
+                       <div class="d-flex justify-content-between">
+    <a href="{{ file.document.url }}" download class="btn btn-sm btn-outline-secondary download-button">Download</a>
+    <div>
+        <form method="post" action="{% url 'rename_file' file.id %}" class="d-inline-block">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-sm btn-outline-secondary download-button">Rename</button>
+        </form>
+        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ file.id }}">Delete</button>
+    </div>
+</div>
                         <div class="modal fade" id="deleteModal{{ file.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
