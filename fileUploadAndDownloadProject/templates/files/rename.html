@@ -1,51 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rename File</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container py-5">
-        <h2 class="text-center mb-4">Rename File</h2>
-        <div class="row justify-content-center">
+   <head>
+      <!-- Meta tags for character set and viewport -->
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Title of the page -->
+      <title>Rename File</title>
+      <!-- Link to Bootstrap CSS for styling -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   </head>
+   <body>
+      <div class="container py-5">
+         <!-- Heading of the page -->
+         <h2 class="text-center mb-4">Rename File</h2>
+         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form method="post" action="{% url 'rename_file' file.id %}" class="p-3">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                <label for="new_name" class="form-label">New Name</label>
-                                <input type="text" class="form-control" id="new_name" name="new_name" placeholder="Enter new name">
-                                <div id="nameAlert" class="alert alert-danger d-none mt-1" role="alert">
-                                    Please enter a new name.
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Rename</button>
-                                <a href="{% url 'home' %}" class="btn btn-danger">Cancel</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+               <div class="card">
+                  <div class="card-body">
+                     <!-- Form for renaming the file -->
+                     <form method="post" action="{% url 'rename_file' file.id %}" class="p-3">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                           <!-- Input field for the new name -->
+                           <label for="new_name" class="form-label">New Name</label>
+                           <input type="text" class="form-control" id="new_name" name="new_name" placeholder="Enter new name">
+                           <!-- Alert for empty name input -->
+                           <div id="nameAlert" class="alert alert-danger d-none mt-1" role="alert">
+                              Please enter a new name.
+                           </div>
+                        </div>
+                        <!-- Buttons for submitting the form or cancelling the operation -->
+                        <div class="d-flex justify-content-between">
+                           <button type="submit" class="btn btn-primary">Rename</button>
+                           <a href="{% url 'home' %}" class="btn btn-danger">Cancel</a>
+                        </div>
+                     </form>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.querySelector('form').addEventListener('submit', function(e) {
-            var nameInput = document.getElementById('new_name');
-            var nameAlertDiv = document.getElementById('nameAlert');
-            if (nameInput.value.trim() === '') {
-                e.preventDefault();
-                nameAlertDiv.classList.remove('d-none');
-            } else {
-                nameAlertDiv.classList.add('d-none');
-            }
-        });
-    </script>
-</body>
+         </div>
+      </div>
+      <!-- Link to Bootstrap JS for functionality -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+
+         // Event listener for form submission
+         document.querySelector('form').addEventListener('submit', function(e) {
+             // Get the name input field and the alert div
+             var nameInput = document.getElementById('new_name');
+             var nameAlertDiv = document.getElementById('nameAlert');
+             // If the name input is empty, prevent form submission and show the alert
+             if (nameInput.value.trim() === '') {
+                 e.preventDefault();
+                 nameAlertDiv.classList.remove('d-none');
+             } else {
+                 // If the name input is not empty, hide the alert
+                 nameAlertDiv.classList.add('d-none');
+             }
+         });
+      </script>
+   </body>
 </html>

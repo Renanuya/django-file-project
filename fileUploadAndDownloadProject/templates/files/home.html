@@ -2,52 +2,67 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Uploaded Files</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .download-button:hover {
-            background-color: #0B6EFD;
-            color: white;
-        }
-    </style>
+        <!-- Title of the page -->
+        <title>Uploaded Files</title>
+        <!-- Link to the Bootstrap CSS library -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            /* Styling for the download button when hovered */
+            .download-button:hover {
+                background-color: #0B6EFD;
+                color: white;
+            }
+        </style>
 </head>
 <body>
     <div class="container py-5">
+        <!-- Heading of the page -->
         <h1 class="text-center mb-4">Uploaded Files</h1>
+        <!-- Button to navigate to the file upload page -->
         <a href="files/upload" class="btn btn-primary mb-3">Upload A New File</a>
         <div class="row">
+            <!-- Loop through each file in the files list in reverse order -->
             {% for file in files reversed %}
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
+                         <!-- Display the name of the file -->
                         <h2 class="card-title">{{ file.name }}</h2>
+                        <!-- Display the upload date of the file -->
                         <p class="card-text">Upload date: {{ file.uploaded_at }}</p>
                        <div class="d-flex justify-content-between">
-    <a href="{{ file.document.url }}" download class="btn btn-sm btn-outline-secondary download-button">Download</a>
-    <div>
-        <form method="post" action="{% url 'rename_file' file.id %}" class="d-inline-block">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-sm btn-outline-secondary download-button">Rename</button>
-        </form>
-        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ file.id }}">Delete</button>
-    </div>
-</div>
+                           <!-- Button to download the file -->
+                           <a href="{{ file.document.url }}" download class="btn btn-sm btn-outline-secondary download-button">Download</a>
+                           <div>
+                               <!-- Form to rename the file -->
+                               <form method="post" action="{% url 'rename_file' file.id %}" class="d-inline-block">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary download-button">Rename</button>
+                               </form>
+                               <!-- Button to open the delete confirmation modal -->
+                               <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ file.id }}">Delete</button>
+                           </div>
+                       </div>
+                        <!-- Modal for confirming file deletion -->
                         <div class="modal fade" id="deleteModal{{ file.id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">Are you sure you want to delete this file?</div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <!-- Modal body with the confirmation message -->
+                            <div class="modal-body">Are you sure you want to delete this file?</div>
+                                <div class="modal-footer">
+                                    <!-- Button to close the modal without deleting the file -->
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <!-- Form to delete the file -->
                                         <form method="POST" action="{% url 'delete_file' file.id %}">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
-                                    </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -56,6 +71,7 @@
             {% endfor %}
         </div>
     </div>
+    <!-- Link to the Bootstrap JS library -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
